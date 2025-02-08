@@ -95,8 +95,7 @@ int main() {
     vector<Account*> accounts;
     vector<Debt> debts;
 
-    accounts.push_back(new Account(427, "Luis", 1420));
-    accounts.push_back(new Account(102, "Jean", 17600));
+    accounts.push_back(new Debt(102, "Jean", 17600, 3800));
     accounts.push_back(new Debt(427, "Luis", 1420, 760));
 
     for (const auto& acc : accounts) {
