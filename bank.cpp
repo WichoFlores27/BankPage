@@ -71,35 +71,32 @@ class Debt : public Account {
 };
 
 int main() {
-    int AccountID;
-    while (true) {
+    int AccountID; 
         cout << "Enter Account ID: ";
         cin >> AccountID;
-        if (AccountID == 427) {
-            break;
-        } else {
-            cout << "Invalid Credentials." << endl;
-        }
-    }
 
     string AccountOwner;
-        while (true){
         cout << "Enter Account Owner: ";
         cin >> AccountOwner;
-        if (AccountOwner == "Luis") {
-            break;
-} else {
-    cout << "Invalid Credentials." << endl;
-}
-}    
+
     vector<Account*> accounts;
     vector<Debt> debts;
 
     accounts.push_back(new Debt(102, "Jean", 17600, 3800));
     accounts.push_back(new Debt(427, "Luis", 1420, 760));
 
+    Account* matchingAccount = nullptr;
     for (const auto& acc : accounts) {
-        acc -> AccountInfo();
+        if(acc->getaccountID() == AccountID && acc->getaccountOwner() == AccountOwner) {
+            matchingAccount = acc;
+            break;
+        };
+    }
+
+    if (matchingAccount != nullptr) {
+        matchingAccount->AccountInfo();
+    } else {
+        cout <<"Invalid credentials..." << endl;
     }
 
     for (auto acc : accounts) {
