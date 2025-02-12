@@ -32,13 +32,29 @@ class Account {
         void setBalance(int balance) {
             Balance = balance;
         }
-        int getBalance() const {
+        int getBalance() {
             return Balance;
         }
-        virtual void AccountInfo() const {
+        virtual void AccountInfo() {
             cout << "Account ID: " << accountID << endl;
             cout << "Account Owner: " << accountOwner << endl;
             cout << "Balance: $" << Balance << endl;
+        }
+        void deposit(int amount) {
+            if(amount > 0) {
+                Balance += amount;
+                cout << "Succesful deposit! New Balance: $" << Balance << endl;
+            } else {
+                cout << "Invalid deposit, please try again" << endl;
+            }
+        }
+        void withdrawal(int amount) {
+            if(amount > 0 && amount <= Balance) {
+                Balance -= amount;
+                cout << "Succesful Withdrawal.\nNew Balance: $" << Balance << endl;
+            } else {
+                cout << "Invalid Withdrawal, please try again" << endl;
+            }
         }
 };
 
@@ -61,7 +77,7 @@ class Debt : public Account {
     int getfinalBalance()  {
         return finalBalance;
     }
-    void AccountInfo() const override {
+    void AccountInfo() override {
         Account::AccountInfo();
         if ( accountDebt > 0) {
             cout << "Account Debt: $" << accountDebt << endl;
@@ -79,7 +95,7 @@ int main() {
 
     accounts.push_back(new Debt(102, "Jean", 17600, 3800));
     accounts.push_back(new Debt(427, "Luis", 1420, 760));
-
+    accounts.push_back(new Debt(277, "Kat", 35900, 9743));
     bool validCredentials = false;
     Account* matchingAccount = nullptr;
 
@@ -107,10 +123,49 @@ int main() {
     } else {
         cout << "Invalid Credentials..." << endl;
     }
+int choice;
 
+do {
+    cout << "\n===== MENU =====\n";
+    cout << "1. Ver Informacion de la Cuenta\n";
+    cout << "2. Realizar un deposito\n";
+    cout << "3. Retirar Dinero\n";
+    cout << "Volver al Menu\n";
+    cout << "Ingresa la opcion deseada: ";
+    cin >> choice;
+
+    switch (choice) {
+    
+        case 1:
+            matchingAccount->AccountInfo();
+            break;
+        case 2: {
+            int depositAmount;
+        cout<< "Enter Amount to deposit: $";
+        cin >> depositAmount;
+        matchingAccount->deposit(depositAmount);
+        break;
+        }
+        case 3: {
+            int withdrawalAmount;
+            cout << "Enter Amount to Withdraw: $";
+            cin >> withdrawalAmount;
+            matchingAccount->withdrawal(withdrawalAmount);
+            break;
+        }
+        case 4: 
+            cout << "Exiting program...\n";
+            return choice; 
+            break;
+        default:
+            cout << "Invalid option, please try again.\n";
+}
+} while (choice !=4);    
+    
     for (auto acc : accounts) {
         delete acc;
     }
-    
+
     return 0;
+    
 }
