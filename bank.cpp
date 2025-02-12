@@ -60,30 +60,30 @@ class Account {
 
 class Debt : public Account {
     private:
-    int accountDebt;
-    int finalBalance;
+        int accountDebt;
+        int finalBalance;
     public:
-    Debt(int accountid, string accountower, int balance, int accountdebt)
-    : Account(accountid, accountower, balance), accountDebt(accountdebt){}
-    void setaccountDebt(int accountdebt) {
-        accountDebt = accountdebt;
-    }
-    int getaccountDebt() {
-        return accountDebt;
-    }
-    void setfinalBalance(int finalbalance) {
-        finalBalance = finalbalance;
-    }
-    int getfinalBalance()  {
-        return finalBalance;
-    }
-    void AccountInfo() override {
-        Account::AccountInfo();
-        if ( accountDebt > 0) {
-            cout << "Account Debt: $" << accountDebt << endl;
-            cout << "Final Balance: $" << (getBalance() - accountDebt) << endl;
+        Debt(int accountid, string accountower, int balance, int accountdebt)
+        : Account(accountid, accountower, balance), accountDebt(accountdebt){}
+        void setaccountDebt(int accountdebt) {
+            accountDebt = accountdebt;
         }
-    }
+        int getaccountDebt() {
+            return accountDebt;
+        }
+        void setfinalBalance(int finalbalance) {
+            finalBalance = finalbalance;
+        }
+        int getfinalBalance()  {
+            return finalBalance;
+        }
+        void AccountInfo() override {
+            Account::AccountInfo();
+            if ( accountDebt > 0) {
+                cout << "Account Debt: $" << accountDebt << endl;
+                cout << "Final Balance: $" << (getBalance() - accountDebt) << endl;
+            }
+        }
 };
 
 int main() {
@@ -118,11 +118,6 @@ int main() {
         }
     }
 
-    if (matchingAccount != nullptr) {
-        matchingAccount->AccountInfo();
-    } else {
-        cout << "Invalid Credentials..." << endl;
-    }
 int choice;
 
 do {
@@ -130,7 +125,7 @@ do {
     cout << "1. Ver Informacion de la Cuenta\n";
     cout << "2. Realizar un deposito\n";
     cout << "3. Retirar Dinero\n";
-    cout << "Volver al Menu\n";
+    cout << "4. Volver al Menu\n";
     cout << "Ingresa la opcion deseada: ";
     cin >> choice;
 
