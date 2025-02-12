@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <limits>
 using std::cout;
 using std::string;
 using std::cin;
@@ -10,6 +11,7 @@ class Account {
     private:
         int accountID;
         string accountOwner;
+    protected:
         int Balance;
     public: 
         Account(int accountid, string accountowner, int balance) {
@@ -40,20 +42,20 @@ class Account {
             cout << "Account Owner: " << accountOwner << endl;
             cout << "Balance: $" << Balance << endl;
         }
-        void deposit(int amount) {
+        virtual void deposit(int amount) {
             if(amount > 0) {
                 Balance += amount;
-                cout << "Succesful deposit! New Balance: $" << Balance << endl;
+                cout << "Deposito Exitoso! Nuevo Balance: $" << Balance << endl;
             } else {
-                cout << "Invalid deposit, please try again" << endl;
+                cout << "Cantidad invalida, por favor intente de nuevo" << endl;
             }
         }
-        void withdrawal(int amount) {
+        virtual void withdrawal(int amount) {
             if(amount > 0 && amount <= Balance) {
                 Balance -= amount;
-                cout << "Succesful Withdrawal.\nNew Balance: $" << Balance << endl;
+                cout << "Retiro Exitoso.\nNuevo Balance: $" << Balance << endl;
             } else {
-                cout << "Invalid Withdrawal, please try again" << endl;
+                cout << "Cantidad invalida, por favor intente de nuevo" << endl;
             }
         }
 };
@@ -61,7 +63,6 @@ class Account {
 class Debt : public Account {
     private:
         int accountDebt;
-        int finalBalance;
     public:
         Debt(int accountid, string accountower, int balance, int accountdebt)
         : Account(accountid, accountower, balance), accountDebt(accountdebt){}
@@ -71,11 +72,15 @@ class Debt : public Account {
         int getaccountDebt() {
             return accountDebt;
         }
-        void setfinalBalance(int finalbalance) {
-            finalBalance = finalbalance;
-        }
         int getfinalBalance()  {
-            return finalBalance;
+            return getBalance() - accountDebt;
+        }
+
+        void setBalance(int balance) {
+            Balance = balance;
+        }
+        int getBalance(){
+            return Balance;
         }
         void AccountInfo() override {
             Account::AccountInfo();
@@ -84,6 +89,24 @@ class Debt : public Account {
                 cout << "Final Balance: $" << (getBalance() - accountDebt) << endl;
             }
         }
+        void deposit(int amount) override {
+            if(amount > 0) {
+                Balance += amount;
+                cout << "Deposito exitoso! Nuevo Balance: $" << getBalance() << endl;
+                cout << "Balance despues de liquidacion: $" << getfinalBalance() << endl;
+            } else {
+                cout << "Cantidad invalida, por favor intente de nuevo" << endl;
+            }
+        }
+        void withdrawal (int amount) override {
+            if(amount > 0 && amount <= getBalance()) {
+                Balance -= amount;
+                cout << "Retiro exitoso.\nNuevo Balance: $" << getBalance() << endl;
+                cout << "Balance despues de liquidacion: $" << getfinalBalance() << endl;
+            } else {
+                cout << "Cantidad invalida, por favor, intente de nuevo" << endl;
+            }
+         }
 };
 
 int main() {
@@ -118,49 +141,60 @@ int main() {
         }
     }
 
-int choice;
+    int choice;
 
-do {
-    cout << "\n===== MENU =====\n";
-    cout << "1. Ver Informacion de la Cuenta\n";
-    cout << "2. Realizar un deposito\n";
-    cout << "3. Retirar Dinero\n";
-    cout << "4. Volver al Menu\n";
-    cout << "Ingresa la opcion deseada: ";
-    cin >> choice;
+    do {
+        cout << "\n===== MENU =====\n";
+        cout << "1. Ver Informacion de la Cuenta\n";
+        cout << "2. Realizar un deposito\n";
+        cout << "3. Retirar Dinero\n";
+        cout << "4. Volver al Menu\n";
+        cout << "Ingresa la opcion deseada: ";
+        cin >> choice;
 
-    switch (choice) {
-    
-        case 1:
-            matchingAccount->AccountInfo();
-            break;
-        case 2: {
-            int depositAmount;
-        cout<< "Enter Amount to deposit: $";
-        cin >> depositAmount;
-        matchingAccount->deposit(depositAmount);
-        break;
+        switch (choice) {
+        
+            case 1:
+                matchingAccount->AccountInfo();
+                cout << "Presione cualquier tecla para continuar...";
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Util para que el usuario pueda visualizar su accion y despues, elegir en que momento regresar al menu
+                cin.get();
+                break;
+            case 2: {
+                int depositAmount;
+                cout<< "Enter Amount to deposit: $";
+                cin >> depositAmount;
+                matchingAccount->deposit(depositAmount);
+                cout << "Presione cualquier tecla para continuar...";
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                cin.get();
+                break;
+            }
+            case 3: {
+                int withdrawalAmount;
+                cout << "Enter Amount to Withdraw: $";
+                cin >> withdrawalAmount;
+                matchingAccount->withdrawal(withdrawalAmount);
+                cout << "Presione cualquier tecla para continuar...\n";
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                cin.get();
+                break;
+            }
+            case 4: 
+                cout << "Exiting program...\n"; 
+                break;
+            default:
+                cout << "Invalid option, please try again.\n";
+                cout << "Presione cualquier tecla para continuar.\n";
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                cin.get();
         }
-        case 3: {
-            int withdrawalAmount;
-            cout << "Enter Amount to Withdraw: $";
-            cin >> withdrawalAmount;
-            matchingAccount->withdrawal(withdrawalAmount);
-            break;
-        }
-        case 4: 
-            cout << "Exiting program...\n";
-            return choice; 
-            break;
-        default:
-            cout << "Invalid option, please try again.\n";
-}
-} while (choice !=4);    
-    
+    } while (choice !=4);    
+        
     for (auto acc : accounts) {
         delete acc;
     }
 
     return 0;
-    
+        
 }
