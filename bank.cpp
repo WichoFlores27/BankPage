@@ -37,7 +37,15 @@ class Account {
             accountID = accountid;
             accountOwner = accountowner;
             Balance = balance;
-        }   
+        }
+
+        string getPasswordHash() {
+            return passwordHash;
+        }
+
+        bool verifyPassword(const string& password) {
+            return hashPassword(password) == passwordHash;
+        }
         void setaccoountID(int accountid) {
             accountID = accountid;
         }
@@ -131,6 +139,7 @@ class Debt : public Account {
 int main() {
     int AccountID; 
     string AccountOwner;
+    string enteredPassword;
     
     vector<Account*> accounts;
     vector<Debt> debts;
@@ -146,9 +155,12 @@ int main() {
         cin >> AccountID;
         cout << "Enter Account Owner: ";
         cin >> AccountOwner;
+        cout << "Enter Password: ";
+        cin >> enteredPassword;
 
         for (const auto& acc : accounts) {
-        if(acc->getaccountID() == AccountID && acc->getaccountOwner() == AccountOwner) {
+        if(acc->getaccountID() == AccountID && acc->getaccountOwner() == AccountOwner &&
+            acc->verifyPassword(enteredPassword)) {
             matchingAccount = acc;
             validCredentials = true;
             break;
