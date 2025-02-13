@@ -6,6 +6,9 @@ using std::string;
 using std::cin;
 using std::endl;
 using std::vector;
+#include <openssl/sha.h>
+#include <sstream>
+#include <iomanip>
 
 class Account {
     private:
