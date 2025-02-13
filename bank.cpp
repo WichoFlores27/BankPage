@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <conio.h>
 using std::cout;
 using std::string;
 using std::cin;
@@ -9,6 +10,7 @@ using std::vector;
 #include <openssl/sha.h>
 #include <sstream>
 #include <iomanip>
+#include <ostream>
 
 string hashPassword(const string& password) {
     unsigned char hash[SHA256_DIGEST_LENGTH];
@@ -31,13 +33,8 @@ class Account {
         int Balance;
     public: 
         Account(int accountid, string accountowner, int balance, string password)
-            : accountID(accountid), accountOwner(accountowner), Balance(balance) {
-            passwordHash = hashPassword(password);
-            isActive = (Balance > 0);
-            accountID = accountid;
-            accountOwner = accountowner;
-            Balance = balance;
-        }
+            : accountID(accountid), accountOwner(accountowner), Balance(balance),
+              passwordHash(hashPassword(password)), isActive(balance > 0) {}
 
         string getPasswordHash() {
             return passwordHash;
@@ -65,8 +62,8 @@ class Account {
             return Balance;
         }
         virtual void AccountInfo() {
-            cout << "Account ID: " << accountID << endl;
-            cout << "Account Owner: " << accountOwner << endl;
+            cout << "ID: " << accountID << endl;
+            cout << "Nombre de cuenta: " << accountOwner << endl;
             cout << "Balance: $" << Balance << endl;
         }
         virtual void deposit(int amount) {
@@ -112,7 +109,7 @@ class Debt : public Account {
         void AccountInfo() override {
             Account::AccountInfo();
             if ( accountDebt > 0) {
-                cout << "Account Debt: $" << accountDebt << endl;
+                cout << "Deuda de cuenta: $" << accountDebt << endl;
                 cout << "Final Balance: $" << (getBalance() - accountDebt) << endl;
             }
         }
@@ -140,15 +137,15 @@ string getHiddenPassword() {
     string password;
     char ch;
     cout << "Ingrese Contrasena: ";
-    while ((ch = _getch()) !='\r') { // '\r' is Enter key
-        if (ch == '\b') { // Handle backspace
+    while ((ch = _getch()) !='\r') {
+        if (ch == '\b') {
             if (!password.empty()) {
-                cout << "\b \b"; // Remove last '*' from console
+                cout << "\b \b";
                 password.pop_back();
             }
         } else {
             password += ch;
-            cout << '*'; // Print '*' instead of the actual character
+            cout << '*';
         }
     }
     cout << endl;
@@ -170,12 +167,11 @@ int main() {
     Account* matchingAccount = nullptr;
 
     while (!validCredentials) {
-        cout << "Enter Account ID: ";
+        cout << "ID: ";
         cin >> AccountID;
-        cout << "Enter Account Owner: ";
+        cout << "Nombre de cuenta: ";
         cin >> AccountOwner;
-        cout << "Enter Password: ";
-        cin >> enteredPassword;
+        enteredPassword = getHiddenPassword();
 
         for (const auto& acc : accounts) {
         if(acc->getaccountID() == AccountID && acc->getaccountOwner() == AccountOwner &&
@@ -187,7 +183,7 @@ int main() {
         }
 
         if (!validCredentials) {
-            cout << "Invalid credentials. Please try again." << endl;
+            cout << "Credenciales invalidas, por favor intente de nuevo." << endl;
         }
     }
 
@@ -212,7 +208,7 @@ int main() {
                 break;
             case 2: {
                 int depositAmount;
-                cout<< "Enter Amount to deposit: $";
+                cout<< "Ingrese monto a depositar: $";
                 cin >> depositAmount;
                 matchingAccount->deposit(depositAmount);
                 cout << "Presione cualquier tecla para continuar...";
@@ -222,7 +218,7 @@ int main() {
             }
             case 3: {
                 int withdrawalAmount;
-                cout << "Enter Amount to Withdraw: $";
+                cout << "Ingrese monto a retirar: $";
                 cin >> withdrawalAmount;
                 matchingAccount->withdrawal(withdrawalAmount);
                 cout << "Presione cualquier tecla para continuar...\n";
@@ -231,10 +227,10 @@ int main() {
                 break;
             }
             case 4: 
-                cout << "Exiting program...\n"; 
+                cout << "Saliendo...\n";
                 break;
             default:
-                cout << "Invalid option, please try again.\n";
+                cout << "Opcion Invalida, por favor intente de nuevo.\n";
                 cout << "Presione cualquier tecla para continuar.\n";
                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 cin.get();
