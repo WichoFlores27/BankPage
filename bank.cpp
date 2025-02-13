@@ -10,14 +10,30 @@ using std::vector;
 #include <sstream>
 #include <iomanip>
 
+string hashPassword(const string& password) {
+    unsigned char hash[SHA256_DIGEST_LENGTH];
+    SHA256((unsigned char*)password.c_str(), password.size(), hash);
+
+    std::stringstream ss;
+    for (int i = 0; i < SHA256_DIGEST_LENGTH; i++) {
+        ss << std::hex << std::setw(2) << std::setfill('0') << (int)hash[i];
+    }
+    return ss.str();
+}
+
 class Account {
     private:
         int accountID;
         string accountOwner;
+        string passwordHash;
+        bool isActive;
     protected:
         int Balance;
     public: 
-        Account(int accountid, string accountowner, int balance) {
+        Account(int accountid, string accountowner, int balance, string password)
+            : accountID(accountid), accountOwner(accountowner), Balance(balance) {
+            passwordHash = hashPassword(password);
+            isActive = (Balance > 0);
             accountID = accountid;
             accountOwner = accountowner;
             Balance = balance;
@@ -28,7 +44,7 @@ class Account {
         int getaccountID() {
             return accountID;
         }
-        void setaccoountOwner(string accountowner) {
+        void setaccountOwner(string accountowner) {
             accountOwner = accountowner;
         }
         string getaccountOwner() {
@@ -67,8 +83,8 @@ class Debt : public Account {
     private:
         int accountDebt;
     public:
-        Debt(int accountid, string accountower, int balance, int accountdebt)
-        : Account(accountid, accountower, balance), accountDebt(accountdebt){}
+        Debt(int accountid, string accountowner, int balance, int accountdebt, string password)
+        : Account(accountid, accountowner, balance, password), accountDebt(accountdebt){}
         void setaccountDebt(int accountdebt) {
             accountDebt = accountdebt;
         }
@@ -119,9 +135,9 @@ int main() {
     vector<Account*> accounts;
     vector<Debt> debts;
 
-    accounts.push_back(new Debt(102, "Jean", 17600, 3800));
-    accounts.push_back(new Debt(427, "Luis", 1420, 760));
-    accounts.push_back(new Debt(277, "Kat", 35900, 9743));
+    accounts.push_back(new Debt(102, "Jean", 17600, 3800, "Encit"));
+    accounts.push_back(new Debt(427, "Luis", 1420, 760, "FullofDreams"));
+    accounts.push_back(new Debt(277, "Kat", 35900, 9743, "Gato"));
     bool validCredentials = false;
     Account* matchingAccount = nullptr;
 
