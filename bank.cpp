@@ -136,6 +136,25 @@ class Debt : public Account {
          }
 };
 
+string getHiddenPassword() {
+    string password;
+    char ch;
+    cout << "Ingrese Contrasena: ";
+    while ((ch = _getch()) !='\r') { // '\r' is Enter key
+        if (ch == '\b') { // Handle backspace
+            if (!password.empty()) {
+                cout << "\b \b"; // Remove last '*' from console
+                password.pop_back();
+            }
+        } else {
+            password += ch;
+            cout << '*'; // Print '*' instead of the actual character
+        }
+    }
+    cout << endl;
+    return password;
+}
+
 int main() {
     int AccountID; 
     string AccountOwner;
