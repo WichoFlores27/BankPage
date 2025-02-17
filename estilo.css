@@ -1,0 +1,29 @@
+body {
+    background-color: #adadad;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+h1 {
+    color: navajowhite;
+}
+a {
+    color: slateblue;
+    text-decoration: none;
+    font-weight: bold;
+}
+a:hover {
+    text-decoration: underline;
+}
+footer {
+    margin-top: 20px;
+    padding: 10px;
+    color: white;
+}
+button {
+    background-color: red;
+    color: white;
+    border: none;
+}
+button:hover {
+    background-color: darkred;
+}
