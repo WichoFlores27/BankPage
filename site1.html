@@ -6,11 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Am I Invisible?</title>
     <link rel="stylesheet" href="estilo.css">
-    <script src="index.js"></script>
+
 </head>
 <body>
+    <input type="text" id="nameInput" name="userName" placeholder="Escribe tu nombre">
+    <input type="tel" id="IdInput" name="userId" placeholder="Ingresa tu ID">
+    <button onClick = "saludar()">Saludame</button>
+    <button class="Ignorar" onclick="saludar()">Ignorame</button>
+    <p id="saludo"></p>
      <div>
          <h1>Huh?</h1>
+         <button id="Smooth">Elige 🌈</button>
          <button onClick = "changeText()">Click Me!</button>
          <p>Welcome hehe</p>
          <p>Este es otro parrafo</p>
@@ -29,5 +35,6 @@
      <footer>
          <p>Mi sitio 2025</p>
      </footer>
+<script src="index.js"></script>
 </body>
 </html>
