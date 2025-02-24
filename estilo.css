@@ -4,15 +4,29 @@ body {
     color: cornflowerblue;
     text-align: center;
 }
-.form-label {
-    display: inline-block;
-    width: 100px;
-    text-align: left;
-    margin-right: 10px;
+#login .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: center;
 }
-.form-input {
-    display: inline-block;
-    width: 150px;
+#login .form-input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#login button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
 }
 header {
     background-color: aliceblue;
@@ -28,7 +42,7 @@ header {
     margin: 0 auto;
 }
 h2 {
-    text-align: left;
+    text-align: center;
 }
 button {
     background-color: cornflowerblue;
@@ -40,4 +54,14 @@ button {
 }
 button:hover {
     background-color: darkblue;
+}
+
+#login {
+    background-color: white;
+    border: 2px solid cornflowerblue;
+    padding: 20px;
+    width: 300px;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
