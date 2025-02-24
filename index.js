@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.getElementById('checkBalance').addEventListener('click', () => {
+            balanceDisplay.style.display = 'block';
             balanceDisplay.textContent = `Saldo: $${balance.toFixed(2)}`;
     });
 
@@ -51,4 +52,5 @@ document.addEventListener('DOMContentLoaded', () => {
        loginForm.style.display = 'block';
        balanceDisplay.textContent = '';
     });
-})
+    balanceDisplay.style.display = 'none';
+});

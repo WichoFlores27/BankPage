@@ -1,7 +1,7 @@
 body {
     font-family: "Poppins", sans-serif;
-    background-color: beige;
-    color: cornflowerblue;
+    background-color: #f7f7f7;
+    color: #333;
     text-align: center;
 }
 #login .form-label {
@@ -9,11 +9,12 @@ body {
     margin-bottom: 5px;
     font-weight: bold;
     text-align: center;
+    color: cornflowerblue;
 }
 #login .form-input {
     width: calc(100% - 22px);
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -53,13 +54,27 @@ header {
 }
 h2 {
     text-align: center;
+    margin: 10px;
+    color: cornflowerblue;
+}
+h3 {
+    color: cornflowerblue;
+    background-color: white;
+    border: 2px solid cornflowerblue;
+    padding: 10px;
+    width: 150px;
+    margin: 20px auto;
+    border-radius: 8px;
+
 }
 button {
     background-color: cornflowerblue;
     color: white;
     padding: 8px 18px;
     margin: 7px 0;
-    border: none;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
     cursor: pointer;
 }
 button:hover {
@@ -74,4 +89,19 @@ button:hover {
     margin: 20px auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+p {
+    color: cornflowerblue;
+    background-color: white;
+    border: 2px solid cornflowerblue;
+    padding: 10px;
+    width: 100px;
+    border-radius: 8px;
+    margin: 20px auto;
+    text-align: center;
 }
