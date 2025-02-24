@@ -46,3 +46,13 @@ button:hover {
 #Smooth:hover {
     filter: brightness(1.2);
 }
+.form-label {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    margin-right: 10px;
+}
+.form-input {
+    display: inline-block;
+    width: 150px;
+}
