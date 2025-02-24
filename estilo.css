@@ -7,10 +7,37 @@ body {
 .form-label {
     display: inline-block;
     width: 100px;
-    text-align: right;
+    text-align: left;
     margin-right: 10px;
 }
 .form-input {
     display: inline-block;
     width: 150px;
+}
+header {
+    background-color: aliceblue;
+    padding: 1em 0;
+    border: 2px solid black;
+    width: 200px;
+    height: auto;
+    margin: 0 auto;
+    text-align: center;
+}
+.login {
+    text-align: left;
+    margin: 0 auto;
+}
+h2 {
+    text-align: left;
+}
+button {
+    background-color: cornflowerblue;
+    color: white;
+    padding: 8px 18px;
+    margin: 7px 0;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: darkblue;
 }
