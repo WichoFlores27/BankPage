@@ -1,40 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Am I Invisible?</title>
+    <title>Banco</title>
     <link rel="stylesheet" href="estilo.css">
-
+    <script src="index.js"></script>
 </head>
 <body>
-    <input type="text" id="nameInput" name="userName" placeholder="Escribe tu nombre">
-    <input type="tel" id="IdInput" name="userId" placeholder="Ingresa tu ID">
-    <button onClick = "saludar()">Saludame</button>
-    <button class="Ignorar" onclick="saludar()">Ignorame</button>
-    <p id="saludo"></p>
-     <div>
-         <h1>Huh?</h1>
-         <button id="Smooth">Elige 🌈</button>
-         <button onClick = "changeText()">Click Me!</button>
-         <p>Welcome hehe</p>
-         <p>Este es otro parrafo</p>
-         <p>Y este es otro.</p>
-         <a href="https://music.youtube.com/watch?v=-B_vU9r-Zho&list=RDAMVM-B_vU9r-Zho">This is a link?</a>
-     </div>
-     <article>
-         <h2>What is this v2</h2>
-         <p>Parrafo</p>
-     </article>
-     <details>
-         <summary><mark>Click aca para expandir</mark></summary>
-         <p>o.O</p>
-         <img src="./ImgSub/frieren.png" alt="Frieren" width="128" height="200">
-     </details>
-     <footer>
-         <p>Mi sitio 2025</p>
-     </footer>
-<script src="index.js"></script>
+    <header>
+        <h1>Banco</h1>
+    </header>
+<main>
+    <section id="login">
+       <h2>Iniciar Sesion</h2>
+        <form action="" method="get" class="login">
+            <div class="login">
+                <label for="Usuario">Usuario: </label>
+                <input type="text" name="Usuario" id="Usuario"
+                       required/>
+            </div>
+            <div class="login">
+                <label for="Contraseña">Contraseña: </label>
+                <input type="text" name="Contraseña" id="Contraseña"
+                       required/>
+            </div>
+            <button type="submit">Iniciar Sesion</button>
+        </form>
+    </section>
+    <section id="account" style="display:none">
+        <h2>Cuenta</h2>
+        <p id="Balance">Saldo: 0.0</p>
+        <button id="checkBalance">Consultar Saldo</button>
+        <button id="deposit">Depositar</button>
+        <button id="withdraw">Retirar</button>
+    </section>
+</main>
 </body>
 </html>
